@@ -1,84 +1,128 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import FeaturedPizzas from '@/app/components/featuredPizzas'
+import ImageFallback from "@/helpers/ImageFallback";
+import { getListPage } from "@/lib/contentParser";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction";
+import SeoMeta from "@/partials/SeoMeta";
+import Testimonials from "@/partials/Testimonials";
+import { Button, Feature } from "@/types";
+import Link from "next/link";
+import { FaCheck } from "react-icons/fa";
 
-export default function Home() {
+const Home = () => {
+  const homepage = getListPage("homepage/_index.md");
+  const testimonial = getListPage("sections/testimonial.md");
+  const callToAction = getListPage("sections/call-to-action.md");
+  const { frontmatter } = homepage;
+  const {
+    banner,
+    features,
+  }: {
+    banner: { title: string; image: string; content?: string; button?: Button };
+    features: Feature[];
+  } = frontmatter;
+
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center">
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src="/images/hero-pizza.jpg"
-            alt="Delicious pizza"
-            fill
-            priority
-            style={{ objectFit: 'cover' }}
-            quality={90}
-          />
-          <div className="absolute inset-0 bg-black opacity-40"></div>
-        </div>
-        
-        <div className="container mx-auto px-4 z-10 text-white">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            Slice Slice Baby STL
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-lg">
-            The best handcrafted pizza in St. Louis, made with fresh ingredients and baked to perfection.
-          </p>
-          <Link 
-            href="/menu" 
-            className="btn btn-primary text-lg px-8 py-3 rounded-full"
-          >
-            View Our Menu
-          </Link>
-        </div>
-      </section>
-      
-      {/* Featured Pizzas */}
-      <FeaturedPizzas />
-      
-      {/* About Section Preview */}
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 mb-8 md:mb-0">
-              <Image 
-                src="/images/pizza-chef.jpg"
-                alt="Our pizza chef"
-                width={500}
-                height={350}
-                className="rounded-lg shadow-lg"
+      <SeoMeta />
+      <section className="section pt-14">
+        <div className="container">
+          <div className="row justify-center">
+            <div className="lg:col-7 md:col-9 mb-8 text-center">
+              <h1
+                className="mb-4 text-h3 lg:text-h1"
+                dangerouslySetInnerHTML={markdownify(banner.title)}
               />
+              <p
+                className="mb-8"
+                dangerouslySetInnerHTML={markdownify(banner.content ?? "")}
+              />
+              {banner.button!.enable && (
+                <Link
+                  className="btn btn-primary"
+                  href={banner.button!.link}
+                  target={
+                    banner.button!.link.startsWith("http") ? "_blank" : "_self"
+                  }
+                  rel="noopener"
+                >
+                  {banner.button!.label}
+                </Link>
+              )}
             </div>
-            <div className="md:w-1/2 md:pl-8">
-              <h2 className="text-3xl font-bold mb-4">Our Story</h2>
-              <p className="text-lg mb-6">
-                Founded in 2015, Slice Slice Baby STL started with a simple mission: create the most delicious, authentic pizza in St. Louis using only the freshest ingredients.
-              </p>
-              <Link href="/about" className="text-red-600 font-semibold hover:text-red-800 transition">
-                Learn more about us →
-              </Link>
-            </div>
+            {banner.image && (
+              <div className="col-12">
+                <ImageFallback
+                  src={banner.image}
+                  className="mx-auto"
+                  width="800"
+                  height="420"
+                  alt="banner image"
+                  priority
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>
-      
-      {/* Call to Action */}
-      <section className="bg-red-600 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to satisfy your pizza cravings?</h2>
-          <p className="text-xl mb-8">Visit us today or give us a call to place your order!</p>
-          <div className="flex flex-col md:flex-row justify-center gap-4">
-            <Link href="/location" className="bg-white text-red-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-full text-lg transition">
-              Find Our Location
-            </Link>
-            <a href="tel:314-555-1234" className="bg-transparent border-2 border-white hover:bg-white hover:text-red-600 font-bold py-3 px-8 rounded-full text-lg transition">
-              Call (314) 555-1234
-            </a>
+
+      {features.map((feature, index: number) => (
+        <section
+          key={index}
+          className={`section-sm ${index % 2 === 0 && "bg-gradient"}`}
+        >
+          <div className="container">
+            <div className="row items-center justify-between">
+              <div
+                className={`mb:md-0 mb-6 md:col-5 ${
+                  index % 2 !== 0 && "md:order-2"
+                }`}
+              >
+                <ImageFallback
+                  src={feature.image}
+                  height={480}
+                  width={520}
+                  alt={feature.title}
+                />
+              </div>
+              <div
+                className={`md:col-7 lg:col-6 ${
+                  index % 2 !== 0 && "md:order-1"
+                }`}
+              >
+                <h2
+                  className="mb-4"
+                  dangerouslySetInnerHTML={markdownify(feature.title)}
+                />
+                <p
+                  className="mb-8 text-lg"
+                  dangerouslySetInnerHTML={markdownify(feature.content)}
+                />
+                <ul>
+                  {feature.bulletpoints.map((bullet: string) => (
+                    <li className="relative mb-4 pl-6" key={bullet}>
+                      <FaCheck className={"absolute left-0 top-1.5"} />
+                      <span dangerouslySetInnerHTML={markdownify(bullet)} />
+                    </li>
+                  ))}
+                </ul>
+                {feature.button.enable && (
+                  <Link
+                    className="btn btn-primary mt-5"
+                    href={feature.button.link}
+                  >
+                    {feature.button.label}
+                  </Link>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ))}
+
+      <Testimonials data={testimonial} />
+      <CallToAction data={callToAction} />
     </>
-  )
-}
+  );
+};
+
+export default Home;
