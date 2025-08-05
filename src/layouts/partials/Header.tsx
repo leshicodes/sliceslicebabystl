@@ -82,10 +82,12 @@ const Header = () => {
                 <li className="nav-item nav-dropdown group relative">
                   <span
                     className={`nav-link inline-flex items-center ${
-                      menu.children?.map(({ url }) => url).includes(pathname) ||
-                      menu.children
-                        ?.map(({ url }) => `${url}/`)
-                        .includes(pathname)
+                      pathname && (
+                        menu.children?.map(({ url }) => url).includes(pathname) ||
+                        menu.children
+                          ?.map(({ url }) => `${url}/`)
+                          .includes(pathname)
+                      )
                         ? "active"
                         : ""
                     }`}
@@ -101,9 +103,9 @@ const Header = () => {
                         <Link
                           href={child.url}
                           className={`nav-dropdown-link block ${
-                            (pathname === `${child.url}/` ||
-                              pathname === child.url) &&
-                            "active"
+                            pathname && (pathname === `${child.url}/` ||
+                              pathname === child.url) ?
+                            "active" : ""
                           }`}
                         >
                           {child.name}
@@ -117,8 +119,8 @@ const Header = () => {
                   <Link
                     href={menu.url}
                     className={`nav-link block ${
-                      (pathname === `${menu.url}/` || pathname === menu.url) &&
-                      "active"
+                      pathname && (pathname === `${menu.url}/` || pathname === menu.url) ?
+                      "active" : ""
                     }`}
                   >
                     {menu.name}

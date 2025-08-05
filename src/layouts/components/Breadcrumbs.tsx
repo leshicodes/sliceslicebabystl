@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const Breadcrumbs = ({ className }: { className?: string }) => {
   const pathname = usePathname();
 
-  const paths = pathname.split("/").filter((x) => x);
+  const paths = pathname ? pathname.split("/").filter((x) => x) : [];
   let parts = [
     {
       label: "Home",

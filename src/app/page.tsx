@@ -1,125 +1,165 @@
 import ImageFallback from "@/helpers/ImageFallback";
 import { getListPage } from "@/lib/contentParser";
-import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction";
 import SeoMeta from "@/partials/SeoMeta";
-import Testimonials from "@/partials/Testimonials";
-import { Button, Feature } from "@/types";
 import Link from "next/link";
-import { FaCheck } from "react-icons/fa";
+import { FaClock, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import menuData from "@/data/menu.json";
 
 const Home = () => {
-  const homepage = getListPage("homepage/_index.md");
-  const testimonial = getListPage("sections/testimonial.md");
   const callToAction = getListPage("sections/call-to-action.md");
-  const { frontmatter } = homepage;
-  const {
-    banner,
-    features,
-  }: {
-    banner: { title: string; image: string; content?: string; button?: Button };
-    features: Feature[];
-  } = frontmatter;
+  const { hours, location } = menuData;
 
   return (
     <>
       <SeoMeta />
-      <section className="section pt-14">
+      {/* Hero Section */}
+      <section className="section pt-14 bg-tertiary">
         <div className="container">
-          <div className="row justify-center">
-            <div className="lg:col-7 md:col-9 mb-8 text-center">
-              <h1
-                className="mb-4 text-h3 lg:text-h1"
-                dangerouslySetInnerHTML={markdownify(banner.title)}
-              />
-              <p
-                className="mb-8"
-                dangerouslySetInnerHTML={markdownify(banner.content ?? "")}
-              />
-              {banner.button!.enable && (
-                <Link
-                  className="btn btn-primary"
-                  href={banner.button!.link}
-                  target={
-                    banner.button!.link.startsWith("http") ? "_blank" : "_self"
-                  }
-                  rel="noopener"
-                >
-                  {banner.button!.label}
-                </Link>
-              )}
+          <div className="row items-center">
+            <div className="lg:col-6 md:col-6">
+              <h1 className="mb-4 text-4xl lg:text-6xl font-heading text-primary">
+                Fresh Pizza, Made With Love
+              </h1>
+              <p className="mb-8 text-lg">
+                Handcrafted pizzas with the finest ingredients, baked to perfection
+                in our stone oven. Experience authentic flavors that will transport
+                your taste buds to Italy.
+              </p>
+              <Link className="btn btn-primary" href="/menu">
+                View Our Menu
+              </Link>
             </div>
-            {banner.image && (
-              <div className="col-12">
-                <ImageFallback
-                  src={banner.image}
-                  className="mx-auto"
-                  width="800"
-                  height="420"
-                  alt="banner image"
-                  priority
-                />
-              </div>
-            )}
+            <div className="lg:col-6 md:col-6">
+              <ImageFallback
+                src="/images/menu/margherita.jpg"
+                className="rounded-lg shadow-lg"
+                width="600"
+                height="400"
+                alt="Delicious pizza"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {features.map((feature, index: number) => (
-        <section
-          key={index}
-          className={`section-sm ${index % 2 === 0 && "bg-gradient"}`}
-        >
-          <div className="container">
-            <div className="row items-center justify-between">
+      {/* Featured Pizzas */}
+      <section className="section">
+        <div className="container">
+          <div className="text-center">
+            <h2 className="font-heading text-3xl lg:text-4xl text-primary mb-12">
+              Our Signature Pizzas
+            </h2>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {menuData.pizzas.slice(0, 3).map((pizza) => (
               <div
-                className={`mb:md-0 mb-6 md:col-5 ${
-                  index % 2 !== 0 && "md:order-2"
-                }`}
+                className="rounded-xl bg-white p-5 shadow-lg"
+                key={`pizza-${pizza.id}`}
               >
                 <ImageFallback
-                  src={feature.image}
-                  height={480}
-                  width={520}
-                  alt={feature.title}
+                  className="w-full h-48 object-cover rounded-lg"
+                  src={pizza.image}
+                  width={300}
+                  height={200}
+                  alt={pizza.name}
                 />
+                <div className="mt-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="h4 font-heading text-primary">{pizza.name}</h3>
+                    <span className="text-lg font-bold">
+                      ${pizza.price.toFixed(2)}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-gray-600">{pizza.description}</p>
+                </div>
               </div>
-              <div
-                className={`md:col-7 lg:col-6 ${
-                  index % 2 !== 0 && "md:order-1"
-                }`}
-              >
-                <h2
-                  className="mb-4"
-                  dangerouslySetInnerHTML={markdownify(feature.title)}
-                />
-                <p
-                  className="mb-8 text-lg"
-                  dangerouslySetInnerHTML={markdownify(feature.content)}
-                />
-                <ul>
-                  {feature.bulletpoints.map((bullet: string) => (
-                    <li className="relative mb-4 pl-6" key={bullet}>
-                      <FaCheck className={"absolute left-0 top-1.5"} />
-                      <span dangerouslySetInnerHTML={markdownify(bullet)} />
-                    </li>
-                  ))}
-                </ul>
-                {feature.button.enable && (
-                  <Link
-                    className="btn btn-primary mt-5"
-                    href={feature.button.link}
-                  >
-                    {feature.button.label}
-                  </Link>
-                )}
+            ))}
+          </div>
+          <div className="text-center mt-12">
+            <Link href="/menu" className="btn btn-outline-primary">
+              View Full Menu
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Hours and Location */}
+      <section className="section bg-light">
+        <div className="container">
+          <div className="row">
+            <div className="lg:col-6 md:col-6 mb-8 lg:mb-0">
+              <h2 className="font-heading text-3xl text-primary mb-6">Hours</h2>
+              <ul className="space-y-3">
+                <li className="flex items-center">
+                  <FaClock className="text-primary mr-3" />
+                  <span>
+                    <strong>Monday:</strong> {hours.monday}
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <FaClock className="text-primary mr-3" />
+                  <span>
+                    <strong>Tuesday:</strong> {hours.tuesday}
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <FaClock className="text-primary mr-3" />
+                  <span>
+                    <strong>Wednesday:</strong> {hours.wednesday}
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <FaClock className="text-primary mr-3" />
+                  <span>
+                    <strong>Thursday:</strong> {hours.thursday}
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <FaClock className="text-primary mr-3" />
+                  <span>
+                    <strong>Friday:</strong> {hours.friday}
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <FaClock className="text-primary mr-3" />
+                  <span>
+                    <strong>Saturday:</strong> {hours.saturday}
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <FaClock className="text-primary mr-3" />
+                  <span>
+                    <strong>Sunday:</strong> {hours.sunday}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div className="lg:col-6 md:col-6">
+              <h2 className="font-heading text-3xl text-primary mb-6">Find Us</h2>
+              <div className="mb-4 flex items-start">
+                <FaMapMarkerAlt className="text-primary mr-3 mt-1" />
+                <p>
+                  {location.address}, {location.city}, {location.state}{" "}
+                  {location.zip}
+                </p>
+              </div>
+              <div className="mb-4 flex items-center">
+                <FaPhone className="text-primary mr-3" />
+                <p>{location.phone}</p>
+              </div>
+              <div className="mt-6">
+                <Link href="/contact" className="btn btn-primary">
+                  Contact Us
+                </Link>
               </div>
             </div>
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
 
-      <Testimonials data={testimonial} />
+      {/* Call to Action Section */}
       <CallToAction data={callToAction} />
     </>
   );

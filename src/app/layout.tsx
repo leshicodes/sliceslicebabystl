@@ -7,6 +7,14 @@ import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
 import "@/styles/main.css";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { Lilita_One } from 'next/font/google';
+
+// Import a similar chunky font from Google Fonts
+const pizzaFont = Lilita_One({ 
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-pizza-heading',
+});
 
 export default function RootLayout({
   children,
@@ -18,7 +26,7 @@ export default function RootLayout({
   const sf = theme.fonts.font_family.secondary;
 
   return (
-    <html suppressHydrationWarning={true} lang="en">
+    <html suppressHydrationWarning={true} lang="en" className={`${pizzaFont.variable}`}>
       {/* google tag manager */}
       {config.google_tag_manager.enable && (
         <GoogleTagManager gtmId={config.google_tag_manager.gtm_id} />

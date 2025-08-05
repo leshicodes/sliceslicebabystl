@@ -24,16 +24,15 @@ Implement the following pages using static content only:
 - Replace logos, icons, and call-to-actions with pizza-specific branding.
 - Hero image should be a pizza shot. Replace existing illustrations.
 - Color scheme: warm tones (e.g., tomato red, basil green, mozzarella cream).
-- Font: Keep existing unless it feels too corporate.
+- The MAIN logo is included in this context but also at: `C:\Users\galax\Documents\git-projects\sliceslicebabystl\public\logo\sliceslicebaby_logo.svg`
+- Font: I would prefer `ChunkFive-Regular`. I have the .ttf file or we can use google fonts. Lemme know if you want me to fetch it for you.
 
 ## Technical Rules
 - Use TypeScript for all components and pages.
 - Use Tailwind CSS utility classes for styling.
 - Remove unused SaaS pages like Pricing, Testimonials, Integrations, etc.
-- Optimize images using `next/image` where possible.
-- Use `next export` for static site output.
 
 ## Output Directory
 - The final static site should be exportable using:
   ```bash
-  npm run build && npm run export
+  npm run build

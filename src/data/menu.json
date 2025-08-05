@@ -1,0 +1,164 @@
+{
+  "pizzas": [
+    {
+      "id": "1",
+      "name": "Classic Margherita",
+      "description": "Fresh mozzarella, tomato sauce, basil",
+      "price": 12.99,
+      "image": "/images/menu/margherita.jpg",
+      "category": "classic"
+    },
+    {
+      "id": "2",
+      "name": "Pepperoni Passion",
+      "description": "Pepperoni, mozzarella, tomato sauce",
+      "price": 14.99,
+      "image": "/images/menu/pepperoni.jpg",
+      "category": "classic"
+    },
+    {
+      "id": "3",
+      "name": "Veggie Supreme",
+      "description": "Bell peppers, onions, mushrooms, black olives, tomatoes",
+      "price": 15.99,
+      "image": "/images/menu/veggie.jpg",
+      "category": "vegetarian"
+    },
+    {
+      "id": "4",
+      "name": "BBQ Chicken",
+      "description": "Grilled chicken, BBQ sauce, red onions, cilantro",
+      "price": 16.99,
+      "image": "/images/menu/bbq-chicken.jpg",
+      "category": "specialty"
+    },
+    {
+      "id": "5",
+      "name": "Mediterranean",
+      "description": "Feta cheese, spinach, sun-dried tomatoes, olives, garlic",
+      "price": 17.99,
+      "image": "/images/menu/mediterranean.jpg",
+      "category": "specialty"
+    },
+    {
+      "id": "6",
+      "name": "Hawaiian",
+      "description": "Ham, pineapple, mozzarella, tomato sauce",
+      "price": 15.99,
+      "image": "/images/menu/hawaiian.jpg",
+      "category": "classic"
+    }
+  ],
+  "toppings": [
+    {
+      "name": "Pepperoni",
+      "price": 1.50
+    },
+    {
+      "name": "Mushrooms",
+      "price": 1.00
+    },
+    {
+      "name": "Bell Peppers",
+      "price": 1.00
+    },
+    {
+      "name": "Onions",
+      "price": 0.75
+    },
+    {
+      "name": "Black Olives",
+      "price": 1.00
+    },
+    {
+      "name": "Extra Cheese",
+      "price": 1.50
+    },
+    {
+      "name": "Sausage",
+      "price": 1.50
+    },
+    {
+      "name": "Bacon",
+      "price": 1.50
+    },
+    {
+      "name": "Anchovies",
+      "price": 2.00
+    },
+    {
+      "name": "Pineapple",
+      "price": 1.00
+    }
+  ],
+  "sides": [
+    {
+      "name": "Garlic Bread",
+      "description": "Freshly baked bread with garlic butter",
+      "price": 4.99,
+      "image": "/images/menu/garlic-bread.jpg"
+    },
+    {
+      "name": "Caesar Salad",
+      "description": "Romaine lettuce, croutons, parmesan cheese",
+      "price": 6.99,
+      "image": "/images/menu/caesar-salad.jpg"
+    },
+    {
+      "name": "Mozzarella Sticks",
+      "description": "Breaded mozzarella with marinara sauce",
+      "price": 7.99,
+      "image": "/images/menu/mozzarella-sticks.jpg"
+    },
+    {
+      "name": "Buffalo Wings",
+      "description": "Spicy chicken wings with blue cheese dip",
+      "price": 9.99,
+      "image": "/images/menu/buffalo-wings.jpg"
+    }
+  ],
+  "drinks": [
+    {
+      "name": "Soda",
+      "description": "Coke, Diet Coke, Sprite, or Dr. Pepper",
+      "price": 2.49,
+      "image": "/images/menu/soda.jpg"
+    },
+    {
+      "name": "Craft Beer",
+      "description": "Selection of local craft beers",
+      "price": 5.99,
+      "image": "/images/menu/beer.jpg"
+    },
+    {
+      "name": "Wine",
+      "description": "House red or white",
+      "price": 6.99,
+      "image": "/images/menu/wine.jpg"
+    },
+    {
+      "name": "Iced Tea",
+      "description": "Sweet or unsweet",
+      "price": 2.49,
+      "image": "/images/menu/iced-tea.jpg"
+    }
+  ],
+  "hours": {
+    "monday": "11:00 AM - 10:00 PM",
+    "tuesday": "11:00 AM - 10:00 PM",
+    "wednesday": "11:00 AM - 10:00 PM",
+    "thursday": "11:00 AM - 10:00 PM",
+    "friday": "11:00 AM - 11:00 PM",
+    "saturday": "11:00 AM - 11:00 PM",
+    "sunday": "12:00 PM - 9:00 PM"
+  },
+  "location": {
+    "address": "123 Pizza Lane",
+    "city": "New York",
+    "state": "NY",
+    "zip": "10001",
+    "phone": "(555) 123-4567",
+    "email": "info@sliceslicebaby.com",
+    "googleMapsUrl": "https://goo.gl/maps/your-location-url"
+  }
+}

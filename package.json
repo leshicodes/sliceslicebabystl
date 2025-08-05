@@ -1,8 +1,8 @@
 {
-  "name": "nextplate",
-  "version": "4.2.2",
-  "description": "Nextjs and Tailwindcss boilerplate",
-  "author": "zeon.studio",
+  "name": "sliceslicebaby",
+  "version": "1.0.0",
+  "description": "Slice Slice Baby Pizza Restaurant Website",
+  "author": "leshicodes",
   "license": "MIT",
   "packageManager": "yarn@1.22.22",
   "scripts": {
